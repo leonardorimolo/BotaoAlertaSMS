@@ -69,49 +69,56 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Botão ALERTA'),
+        title: const Text('Botão de Alerta'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             SizedBox(
-              width: 300,
-              height: 300,
-              child: FilledButton(
-                  onPressed: () async {
-                    _getCurrentLocation().then((value) async {
-                      lat = value.latitude.toString();
-                      long = value.longitude.toString();
-
-                      _liveLocation();
-
-                      try {
-                        await _sendSMS(lat, long);
-                        print(
-                            "Estou em perigo! Esta é minha localização: https://maps.google.com/?q=$lat+$long");
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Alerta enviado com sucesso!"),
-                        ));
-                      } catch (e) {
-                        print("Erro ao enviar alerta: $e");
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Erro ao enviar o alerta."),
-                        ));
-                      }
-                    });
-                  },
-                  style: const ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll<Color>(Colors.red),
+              width: 250,
+              height: 250,
+              child: FilledButton.icon(
+                icon: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: const Icon(
+                    Icons.add_alert_sharp,
+                    size: 200.0,
                   ),
-                  child: const Text(
-                    'Enviar ALERTA!',
-                    style: TextStyle(fontSize: 30),
-                  )),
+                ),
+                label: const Text(
+                  '',
+                  style: TextStyle(fontSize: 0),
+                ),
+                onPressed: () async {
+                  _getCurrentLocation().then((value) async {
+                    lat = value.latitude.toString();
+                    long = value.longitude.toString();
+
+                    _liveLocation();
+
+                    try {
+                      await _sendSMS(lat, long);
+                      print(
+                          "Estou em perigo! Esta é minha localização: https://maps.google.com/?q=$lat+$long");
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Alerta enviado com sucesso!"),
+                      ));
+                    } catch (e) {
+                      print("Erro ao enviar alerta: $e");
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Erro ao enviar o alerta."),
+                      ));
+                    }
+                  });
+                },
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(Colors.red),
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
