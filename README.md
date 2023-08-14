@@ -1,6 +1,6 @@
 # botao_alerta
 
-A new Flutter project.
+Aplicativo em Flutter que envie um Alerta por SMS contendo a localização do usuário em tempo real, utilizando a API  da Twillio para o envio automático do SMS
 
 ## Getting Started
 
